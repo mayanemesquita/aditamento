@@ -1,6 +1,7 @@
 package br.com.itau.aditamento.domain;
 
 import br.com.itau.aditamento.BusinessException;
+import br.com.itau.aditamento.controllers.AditamentoRequestPagamento;
 import br.com.itau.aditamento.controllers.AditamentoRequestParcelas;
 import br.com.itau.aditamento.controllers.ContratoRequest;
 import br.com.itau.aditamento.integrations.JurosResponse;
@@ -65,8 +66,9 @@ public class Contrato {
         private BigDecimal percentualTaxaJuros;
 
         public static Financeiro buildFinanceiro(ContratoRequest.FinanceiroRequest financeiroRequest) {
-
-            validar10Dias(financeiroRequest.getDiaPagamento());
+            if (financeiroRequest.getDiaPagamento() != 0) {
+                validar10Dias(financeiroRequest.getDiaPagamento());
+            }
 
             return Financeiro.builder()
                     .tipoCalculo(financeiroRequest.getTipoCalculo())
@@ -92,7 +94,7 @@ public class Contrato {
 
 
     private static int recuperarUltimoDigitoContrato(Long contratoId) {
-        return 15;
+        return String.valueOf(contratoId).charAt(String.valueOf(contratoId).length() - 1);
     }
 
     public static void validarQuantidadeParcelas(AditamentoRequestParcelas contratoRequest) {
@@ -115,7 +117,7 @@ public class Contrato {
 
     public static void validarParcelasEmAtraso(Boolean parcelasEmAtraso) {
         if (parcelasEmAtraso.equals(Boolean.TRUE)) {
-            throw new BusinessException("Existe parcelas em atraso");
+            throw new BusinessException("Existe parcelas em atraso para esse contrato");
         }
     }
 
