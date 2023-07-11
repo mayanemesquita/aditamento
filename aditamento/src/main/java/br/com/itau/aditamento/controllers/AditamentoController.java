@@ -20,12 +20,12 @@ public class AditamentoController {
     }
 
     @PostMapping("/altera-quantidade-parcelas")
-    public ResponseEntity<ContratoResponse> alterarQuantidadeParcelas(@RequestHeader(value = "itau-pos-venda-teste") UUID itauPosVenda, @Valid @RequestBody AditamentoRequestParcelas contratoRequest) {
+    public ResponseEntity<ContratoResponse> alterarQuantidadeParcelas(@RequestHeader(value = "itau-pos-venda-teste") UUID itauPosVenda, @Valid @RequestBody ContratoParcelas contratoRequest) {
         return new ResponseEntity<>(aditamentoService.alterarQuantidadeParcelas(contratoRequest), HttpStatus.OK);
     }
 
     @PostMapping("/altera-dia-pagamento")
-    public ResponseEntity<ContratoResponse> alterarDiaPagamento(@RequestHeader(value = "itau-pos-venda-teste") UUID itauPosVenda, @Valid @RequestBody AditamentoRequestPagamento contratoRequest) {
+    public ResponseEntity<ContratoResponse> alterarDiaPagamento(@RequestHeader(value = "itau-pos-venda-teste") UUID itauPosVenda, @Valid @RequestBody ContratoPagamento contratoRequest) {
         return new ResponseEntity<>(aditamentoService.alterarDiaPagamento(contratoRequest), HttpStatus.OK);
     }
 

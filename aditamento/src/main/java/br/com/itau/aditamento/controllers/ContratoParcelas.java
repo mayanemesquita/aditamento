@@ -5,13 +5,13 @@ import lombok.Getter;
 import lombok.Setter;
 @Getter
 @Setter
-public class AditamentoRequestParcelas extends ContratoRequest{
+public class ContratoParcelas extends ContratoRequest{
 
-    private AditamentoRequest aditamento;
+    private AditamentoParcelasRequest aditamento;
 
     @Getter
     @Setter
-    public static class AditamentoRequest {
+    public static class AditamentoParcelasRequest {
         @JsonProperty("nova_quantidade_parcelas")
         public int novaQuantidadeParcelas;
     }

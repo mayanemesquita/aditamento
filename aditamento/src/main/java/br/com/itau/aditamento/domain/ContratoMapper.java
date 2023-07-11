@@ -1,5 +1,7 @@
 package br.com.itau.aditamento.domain;
 
+import br.com.itau.aditamento.controllers.ContratoPagamento;
+import br.com.itau.aditamento.controllers.ContratoParcelas;
 import br.com.itau.aditamento.controllers.ContratoResponse;
 import org.mapstruct.AfterMapping;
 import org.mapstruct.Mapper;
@@ -10,6 +12,11 @@ import java.util.List;
 
 @Mapper
 public interface ContratoMapper {
+
+    @Mapping(target = "ultimoDigitoContrato", expression = "java(recuperarUltimoDigitoContrato(contratoRequest.getContratoId()))")
+    Contrato fromRequest(ContratoParcelas contratoRequest);
+    @Mapping(target = "ultimoDigitoContrato", expression = "java(recuperarUltimoDigitoContrato(contratoRequest.getContratoId()))")
+    Contrato fromRequest(ContratoPagamento contratoRequest);
 
     @Mapping(target = "financeiro", ignore = true)
     ContratoResponse toResponse(Contrato contrato);
@@ -35,5 +42,8 @@ public interface ContratoMapper {
 
     }
 
+    default int recuperarUltimoDigitoContrato(Long contratoId) {
+        return Integer.parseInt(String.valueOf(String.valueOf(contratoId).charAt(String.valueOf(contratoId).length() - 1)));
+    }
 
 }
